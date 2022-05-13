@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import GoogleButton from "react-google-button";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import auth from "../Firebase/firebase"
 import userSlice from "../store/user";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+
+
 const Login = () => {
 
     const { register, handleSubmit, formState } = useForm()
@@ -15,6 +20,23 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const authHandle = auth;
+  const provider = new GoogleAuthProvider();
+  const loginGoogle = () => {
+    signInWithPopup(authHandle, provider)
+      .then((data) => {
+        if (data.user.accessToken) {
+          //console.log(data);
+          //console.log(data.user);
+          localStorage.setItem("user" , JSON.stringify(data.user))
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+    })
+  }
+
 
     const formSubmitHandler = (data) => {
         // proses login
@@ -62,6 +84,9 @@ const Login = () => {
                         </div>
                         <div class="mb-8">
                             <button type="submit" className="bg-green-700 px-6 py-2 text-white">Login</button>
+                        </div>
+                       <div class="mb-8">
+                         <GoogleButton onClick={loginGoogle}  />
                         </div>
                         <p>Don't have an accout? <Link to="/register" className="text-blue-600">Register Now</Link></p>
                     </form>
