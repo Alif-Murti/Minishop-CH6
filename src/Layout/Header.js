@@ -5,7 +5,9 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const user = useSelector((store) => store.user.data);
   return (
+    
     <div className="bg-green-700 text-white">
+      
       <div className="container py-6">
         <div className="flex justify-between items-center">
           <div>

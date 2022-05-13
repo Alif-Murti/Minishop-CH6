@@ -14,6 +14,7 @@ import ProtectedRoute from "./Component/HOC/ProtectedRoute";
 import UnportectedRoute from "./Component/HOC/UnportectedRoute";
 import Logout from "./Page/Logout";
 
+
 function App() {
   const dispatch = useDispatch();
 
@@ -27,12 +28,15 @@ function App() {
     } catch {}
   }, []);
 
+
+
+
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
+          {/**All */}
           <Route path="/" element={<Layout />}>
-            {/**All */}
             <Route index element={<h1>Home</h1>} />
             <Route path="products/">
               <Route index element={<Product />} />
